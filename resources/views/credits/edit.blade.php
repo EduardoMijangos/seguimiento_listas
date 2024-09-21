@@ -1,5 +1,6 @@
-<!-- resources/views/credits/edit.blade.php -->
 <!DOCTYPE html>
+
+<!--faltas-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">

@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+<!--faltas-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -95,5 +97,3 @@
 </body>
 </html>
 
-
-falta que funcione
