@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-
-<!--faltas-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,6 +20,16 @@
                 </ul>
             </div>
         @endif
+
+        <!-- Información de colmena y sucursal -->
+        <div class="mb-3">
+            <label for="colmena" class="form-label">Colmena</label>
+            <input type="text" class="form-control" id="colmena" name="colmena" value="{{ $colmena }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="sucursal" class="form-label">Sucursal</label>
+            <input type="text" class="form-control" id="sucursal" name="sucursal" value="{{ $sucursal }}" readonly>
+        </div>
 
         <!-- Formulario para crear crédito -->
         <form action="{{ route('credits.store') }}" method="POST">
@@ -96,4 +104,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
