@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Crédito</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
+
 <body>
     <div class="container mt-5">
-        <h1>Crear Nuevo Crédito</h1>
+        <h1 class="mb-4">Crear Nuevo Crédito</h1>
 
-        <!-- Mostrar errores de validación si existen -->
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -21,82 +22,117 @@
             </div>
         @endif
 
-        <!-- Formulario para crear crédito -->
         <form action="{{ route('credits.store') }}" method="POST">
             @csrf
+
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre') }}" required>
+                <label for="socia_id" class="form-label">Nombre de la Socia</label>
+                <select name="socia_id" class="form-select" required>
+                    <option value="">Seleccione una socia</option>
+                    @foreach($socias as $socia)
+                        <option value="{{ $socia->id }}">{{ $socia->nombre1 }} {{ $socia->nombre2 ? $socia->nombre2 . ' ' : '' }}
+                            {{ $socia->apellido_paterno }} {{ $socia->apellido_materno }}</option>
+                    @endforeach
+                </select>
             </div>
-            
+
+
+            <div class="mb-3">
+                <label for="colmena_id" class="form-label">Colmena</label>
+                <select name="colmena_id" class="form-select" required>
+                    <option value="">Seleccione una colmena</option>
+                    @foreach($colmenas as $colmena)
+                        <option value="{{ $colmena->id }}">{{ $colmena->numero_colmena }} - {{ $colmena->nombre_colmena }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="proposito" class="form-label">Propósito</label>
+                <select name="proposito" class="form-select" required>
+                    <option value="">Seleccione un propósito</option>
+                    @foreach($actividads as $actividad)
+                        <option value="{{ $actividad->id }}">{{ $actividad->actividad_economica }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="mb-3">
                 <label for="fecha_entrega" class="form-label">Fecha de Entrega</label>
-                <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" value="{{ old('fecha_entrega') }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="grupo" class="form-label">Grupo</label>
-                <input type="text" class="form-control" id="grupo" name="grupo" value="{{ old('grupo') }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="proposito" class="form-label">Propósito del Crédito</label>
-                <input type="text" class="form-control" id="proposito" name="proposito" value="{{ old('proposito') }}" required>
+                <input type="date" name="fecha_entrega" class="form-control" value="{{ old('fecha_entrega') }}"
+                    required>
             </div>
 
             <div class="mb-3">
                 <label for="ciclo" class="form-label">Ciclo</label>
-                <input type="text" class="form-control" id="ciclo" name="ciclo" value="{{ old('ciclo') }}" required>
+                <input type="number" name="ciclo" class="form-control" value="{{ old('ciclo') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="plazo" class="form-label">Plazo</label>
-                <input type="text" class="form-control" id="plazo" name="plazo" value="{{ old('plazo') }}" required>
+                <input type="number" name="plazo" class="form-control" value="{{ old('plazo') }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="cantidad_credito" class="form-label">Cantidad de Crédito</label>
-                <input type="number" class="form-control" id="cantidad_credito" name="cantidad_credito" value="{{ old('cantidad_credito') }}" required>
+                <label for="credito" class="form-label">Crédito</label>
+                <input type="number" name="credito" class="form-control" value="{{ old('credito') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="aportacion_social" class="form-label">Aportación Social</label>
-                <input type="number" class="form-control" id="aportacion_social" name="aportacion_social" value="{{ old('aportacion_social') }}">
-            </div>
-
-            <div class="mb-3">
-                <label for="saldo" class="form-label">Saldo</label>
-                <input type="number" class="form-control" id="saldo" name="saldo" value="{{ old('saldo') }}" required>
+                <input type="number" name="aportacion_social" class="form-control"
+                    value="{{ old('aportacion_social') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="abono" class="form-label">Abono</label>
-                <input type="number" class="form-control" id="abono" name="abono" value="{{ old('abono') }}" required>
+                <input type="number" name="abono" class="form-control" value="{{ old('abono') }}" required>
             </div>
 
             <div class="mb-3">
-                <label for="recuperado" class="form-label">Recuperado</label>
-                <input type="number" class="form-control" id="recuperado" name="recuperado" value="{{ old('recuperado') }}" required>
+                <label for="saldo_credito" class="form-label">Saldo Crédito</label>
+                <input type="number" name="saldo_credito" class="form-control" value="{{ old('saldo_credito') }}"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label for="creditos_otorgados" class="form-label">Créditos Otorgados</label>
+                <input type="number" name="creditos_otorgados" class="form-control"
+                    value="{{ old('creditos_otorgados') }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="total_recuperado_credito" class="form-label">Total Recuperado Crédito</label>
+                <input type="number" name="total_recuperado_credito" class="form-control"
+                    value="{{ old('total_recuperado_credito') }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="total_recuperado_aportacion" class="form-label">Total Recuperado Aportación</label>
+                <input type="number" name="total_recuperado_aportacion" class="form-control"
+                    value="{{ old('total_recuperado_aportacion') }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="saldo_final" class="form-label">Saldo Final</label>
+                <input type="number" name="saldo_final" class="form-control" value="{{ old('saldo_final') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="estatus" class="form-label">Estatus</label>
-                <input type="text" class="form-control" id="estatus" name="estatus" value="{{ old('estatus') }}" required>
+                <select name="estatus" class="form-select" required>
+                    <option value="">Seleccione un estatus</option>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
             </div>
 
-            <!-- Botones de acción -->
-            <button type="submit" class="btn btn-primary">Crear Crédito</button>
+            <button type="submit" class="btn btn-success">Guardar</button>
             <a href="{{ route('credits.index') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
-
-    <!-- Agregar Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
-<<<<<<< HEAD
-=======
-
-
-falta que funcione
->>>>>>> parent of f700570 (correciones)
